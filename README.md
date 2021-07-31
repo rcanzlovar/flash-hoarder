@@ -10,7 +10,8 @@ all in the cloud. There will be a web/webapp front end that allows for review
 of the library, maintenance of the keywords to scrape for, downloading the 
 videos. 
 
-Features:
+ytsearch - looks for keyaords on youtube, writes a couple fields to a sqlite3 db
+Planned Features:
 - keyword manager
 - submission page for specific URLs. 
 - videos tracked by URL
