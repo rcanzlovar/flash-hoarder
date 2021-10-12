@@ -17,7 +17,7 @@ settings = 'settings.json'
 batch = 5
 
 # assess the command line options
-helptext =  'ytsearch.py -k <keyword string> -d <database name> -b <batch size> -s <settings file>'
+helptext =  'ytsearch.py [-k <keyword string> -d <database name> -b <batch size>] [-s <settings file>]'
 argv = sys.argv[1:]
 try:
    opts, args = getopt.getopt(argv,"hb:s:d:k:",["batch=","settings=","dbname=","keywords="])
@@ -28,10 +28,11 @@ for opt, arg in opts:
    if opt == '-h':
       print (helptext)
       sys.exit()
-   elif opt in ("-b", "--batch"):
-      batch = arg
    elif opt in ("-s", "--settings"):
       settings = arg
+      continue
+   elif opt in ("-b", "--batch"):
+      batch = arg
    elif opt in ("-d", "--dbname"):
       dbname = arg
    elif opt in ("-k", "--keywords"):
@@ -115,7 +116,7 @@ def check_if_ytid_exists(con,ytid):
 	sql = "SELECT ytid FROM video WHERE ytid=?"
 	cur = con.cursor()
 	cur.execute(sql, (ytid,))
-	results = cur.fetchall()cheney_
+	results = cur.fetchall()
 	if len(results) == 0: 
 		return False
 	else:
@@ -173,8 +174,8 @@ def search_yt_(con,searchstring):
     for j in range(mynum):
         ytid = infoSearched['entries'][j]['id']
         if (check_if_ytid_exists(con,ytid) == False):
-            print ('saving {} "{}"'.format(infoSearched['entries'][j]['id'], infoSearched['entries'][j]['title']))
-            save_ytinfo(con,ytid, infoSearched['entries'][j]['webpage_url'], infoSearched['entries'][j]['title'])
+            print ('saving {} "{}"'.format(infoSearched['entries'][j]['id'], infoSearched['entries'][j]['title'].encode('ascii', 'xmlcharrefreplace')))
+            save_ytinfo(con,ytid, infoSearched['entries'][j]['webpage_url'], infoSearched['entries'][j]['title'].encode('ascii', 'xmlcharrefreplace'))
 
 #        for key in infoSearched['entries'][j]:
 #
