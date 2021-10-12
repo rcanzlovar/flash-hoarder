@@ -1,0 +1,16 @@
+# Output of the crontab jobs (including errors) is sent through
+# email to the user the crontab file belongs to (unless redirected).
+# 
+# For example, you can run a backup of all your user accounts
+# at 5 a.m every week with:
+# 0 5 * * 1 tar -zcf /var/backups/home.tgz /home/
+# 
+# For more information see the manual pages of crontab(5) and cron(8)
+# m h  dom mon dow   command
+#10,20,30,40,50,00 5 * * 1 tar -zcf /var/backups/homei_`date '+%Y%m%d'`.tgz /home/rca/Projects
+#05,15,25,35,45,55,55 * * * * /usr/bin/python3 /home/pi/Projects/mediagrab/ytsearch.py  -k 'cheney' -d cheney.sqlite3 -b 20 > /var/log/mediagrab/ytsearch_cheney_` /bin/date '+\%Y\%m\%d-\%H\%M'`.log 2>&1
+0,15,30 * * * * /usr/bin/python3 /home/pi/Projects/mediagrab/ytsearch.py -k 'gaetz' -d gaetz.sqlite3  -b 20 > /var/log/mediagrab/ytsearch_gaetz_` /bin/date '+\%Y\%m\%d-\%H\%M'`.log 2>&1
+#05,15,25,35,45,55
+#03,13,23,33,43,53
+## 
+#0 9 * * *  pip3 install --upgrade youtube-dl
