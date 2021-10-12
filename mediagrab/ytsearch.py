@@ -174,8 +174,11 @@ def search_yt_(con,searchstring):
     for j in range(mynum):
         ytid = infoSearched['entries'][j]['id']
         if (check_if_ytid_exists(con,ytid) == False):
-            print ('saving {} "{}"'.format(infoSearched['entries'][j]['id'], infoSearched['entries'][j]['title'].encode('ascii', 'xmlcharrefreplace')))
-            save_ytinfo(con,ytid, infoSearched['entries'][j]['webpage_url'], infoSearched['entries'][j]['title'].encode('ascii', 'xmlcharrefreplace'))
+		# added xmlcharreplace to make it work with odd character sets
+            save_ytinfo(con,ytid, infoSearched['entries'][j]['webpage_url'], 
+			  infoSearched['entries'][j]['title'].encode('ascii', 'xmlcharrefreplace'))
+            print ('saving {} "{}"'.format(infoSearched['entries'][j]['id'], 
+			  infoSearched['entries'][j]['title'].encode('ascii', 'xmlcharrefreplace')))
 
 #        for key in infoSearched['entries'][j]:
 #
