@@ -29,15 +29,20 @@ resource "aws_instance" "rca_mediagrab_server" {
 
   provisioner "remote-exec" {
     inline = [
-	  "sudo yum update -y",
-	  "sudo yum install -y git",
+	"sudo yum update -y",
+	"sudo yum install -y git",
+        "pip3 install youtube_dl",
 
-      "sudo curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /usr/local/bin/youtube-dl",
-      "sudo chmod a+rx /usr/local/bin/youtube-dl",
+        "sudo curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /usr/local/bin/youtube-dl",
+        "sudo chmod a+rx /usr/local/bin/youtube-dl",
 	  
-	  "[ -d bin ] || mkdir bin",
-	  "cd bin",
-	  "git clone https://github.com/rcanzlovar/flash-hoarder.git"
+	"[ -d bin ] || mkdir bin",
+	"cd bin",
+	"git clone https://github.com/rcanzlovar/flash-hoarder.git"
+	"[ -f mediagrab/install.sh ] && mediagrab/install.sh",
+        "cp flash-hoarder/mediagrab/ytsearch.py  .",
+        "cp flash-hoarder/mediagrab/settings.json .",
+
     ]
   }
   connection {
